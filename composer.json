@@ -1,0 +1,22 @@
+{
+    "name": "william/projeto_loja-web",
+    "description": "loja online em php",
+    "type": "project",
+    "authors": [
+        {
+            "name": "William-devBr",
+            "email": "williambatista9901@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "core\\" : "core/"
+        },
+        "files" : [
+            "config.php"
+        ]
+    }
+}
