@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12-Jul-2023 às 22:09
+-- Generation Time: 13-Jul-2023 às 16:28
 -- Versão do servidor: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -74,6 +74,54 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`, `cidade`, `endereço`, `
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `itens_pedido`
+--
+
+CREATE TABLE `itens_pedido` (
+  `id_pedido` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `nome_produto` varchar(50) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `valor_unit` decimal(6,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `itens_pedido`
+--
+
+INSERT INTO `itens_pedido` (`id_pedido`, `id_produto`, `nome_produto`, `quantidade`, `valor_unit`) VALUES
+(1, 1, 'Camisa preta masculina', 1, '1056.00'),
+(1, 3, 'Camisa masculina verde', 1, '99.00'),
+(1, 5, 'Camisa Kids', 1, '22.50'),
+(2, 2, 'Vestido vermelho', 1, '120.25');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pedido`
+--
+
+CREATE TABLE `pedido` (
+  `id_pedido` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `cod_pedido` varchar(20) NOT NULL,
+  `data_pedido` datetime NOT NULL,
+  `update_pedido` datetime NOT NULL,
+  `status_pedido` varchar(20) NOT NULL,
+  `valor_pedido` decimal(6,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `pedido`
+--
+
+INSERT INTO `pedido` (`id_pedido`, `id_cliente`, `cod_pedido`, `data_pedido`, `update_pedido`, `status_pedido`, `valor_pedido`) VALUES
+(1, 1, ' SQ717706', '2023-07-13 11:17:29', '2023-07-13 11:17:29', 'PENDENTE', '1177.50'),
+(2, 1, ' NR856134', '2023-07-13 11:18:37', '2023-07-13 11:18:37', 'PENDENTE', '120.25');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `produto`
 --
 
@@ -119,6 +167,12 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`id_pedido`);
+
+--
 -- Indexes for table `produto`
 --
 ALTER TABLE `produto`
@@ -139,6 +193,12 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `produto`
