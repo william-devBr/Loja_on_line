@@ -5,6 +5,7 @@
   use core\models\Pessoa;
   use core\classes\Email;
   use core\models\Produto;
+  use core\models\Pedido;
 
 
  class Main {
@@ -184,7 +185,7 @@
          
           $usuario = Pessoa::logarPessoa($email, $senha);
          if(is_bool($usuario)) {
-               $_SESSION['error'][] = '*E-mail ou senha incorretos';
+               $_SESSION['error'][] = '*E-mail ou senha inválidos';
                Store::redirect('login');
          } else {
 
@@ -209,6 +210,7 @@
         if(Store::clientSession()){
            unset($_SESSION['client']);
            Store::redirect('home');
+           return;
         }
            Store::redirect('home');
       }
@@ -218,11 +220,13 @@
 
         if(!isset($_SESSION['carrinho']) || count($_SESSION['carrinho']) == 0) {
           Store::redirect('home');
+          return;
         }
 
          if(!isset($_SESSION['client'])) {
           $_SESSION['tmp_referrer'] = true;
-          Store::redirect('login');
+           Store::redirect('login');
+           return;
          }
 
          $ids = [];
@@ -277,11 +281,62 @@
         $data);
       }
 
+       //confirmacao do pedido
+       public function confirmacao(){
+
+            if(!isset($_SESSION['carrinho']) || count($_SESSION['carrinho']) == 0) {
+                 Store::redirect('home');
+                 return;
+            }
+
+            $ids = [];
+         
+
+            foreach($_SESSION['carrinho'] as $produto_id => $quantidade) {
+              array_push($ids, $produto_id);
+        
+          }
+          
+              $ids = implode(",", $ids);
+              $produto = new Produto();
+              $result = $produto->lista_produtos_id($ids);
+
+              //==================cria os dados da pedido
+              $pedido = [];
+             
+
+              foreach($result as $produto ){
+                    $pedido []= [
+                      'id_produto'=>$produto->id_produto,
+                      'nome_produto'=>$produto->nome_produto,
+                      'valor_unitario'=>$produto->preco,
+                      'quantidade'=>$_SESSION['carrinho'][$produto->id_produto]
+                    ];
+              }
+              //==============================
+              $dados_pedido = [
+                  'id_cliente' => $_SESSION['id_client'],
+                  'cod_pedido' => $_SESSION['cod_pedido'],
+                  'valor'=> $_SESSION['valor_total'],
+              ];
+            
+              $item_pedido = new Pedido();
+              $id_pedido = $item_pedido->grava_pedido($dados_pedido, $pedido);
+               //==============================
+               
+               //====== limpa as sessões
+                unset( $_SESSION['cod_pedido']);
+                unset( $_SESSION['valor_total']);
+                unset ( $_SESSION['carrinho']);
+                die("dados do pedido grvado com sucesso!...");
+             
+
+       }
+
 
       public function produto(){
 
-         
-
+      
          $id_produto = $_GET['_item'];
 
          if(!Produto::getProduto($id_produto)) {
@@ -304,4 +359,6 @@
         $data);
          
       }
+
+
 }
