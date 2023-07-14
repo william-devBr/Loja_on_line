@@ -80,10 +80,21 @@
 
   public function minha_conta(){
 
-      $data = ['title'=> APP_NAME." ".APP_VERSION];
+    if(!Store::clientSession()){
+        $this->index(); return;
+      }
+      $cliente = Pessoa::dados_cliente($_SESSION['id_client']);
+      $pedidos_cliente = Pessoa::pedidos_cliente($_SESSION['id_client']);
+
+      $data = [
+         'title'=> APP_NAME." ".APP_VERSION,
+         'dados_pessoais'=> $cliente,
+         'pedidos' => $pedidos_cliente
+        ];
       Store::Layout([
         'layouts/html_header', 
         'layouts/header',
+        'nav_usuario',
         'minha-conta',
         'layouts/footer',
         'layouts/html_footer'
@@ -325,9 +336,9 @@
                //==============================
                
                //====== limpa as sessões
-                unset( $_SESSION['cod_pedido']);
-                unset( $_SESSION['valor_total']);
-                unset ( $_SESSION['carrinho']);
+                unset($_SESSION['cod_pedido']);
+                unset($_SESSION['valor_total']);
+                unset ($_SESSION['carrinho']);
                 die("dados do pedido grvado com sucesso!...");
              
 
