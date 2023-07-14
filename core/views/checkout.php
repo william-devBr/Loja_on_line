@@ -82,6 +82,14 @@
             </div>
         </div>
       </div>
+       <div class="row my-2">
+        <div class="col">
+            <a href="?a=carrinho" class="btn btn-danger">cancelar o pedido</a>
+        </div>
+        <div class="col text-end">
+            <a href="?a=confirmacao-pedido"  class="btn btn-primary">Finalizar o pedido</a>
+        </div>
+       </div>
 </div>
 <script>
   edit_endereco.addEventListener("click", (evt)=> {

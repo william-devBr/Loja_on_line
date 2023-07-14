@@ -1,5 +1,4 @@
 <div class="container mb-80">
-
   <div class="row">
      <div class="col-12 text-center my-4">
       <a href="?a=home&_cat=todos" class="btn btn-default"> Todos </a>
@@ -10,6 +9,7 @@
       </div>
   </div>
 
+
   <?php if(count($produto) == 0): ?>
      <div class="row text-muted my-2 text-center">
         <h3>Não há produtos disponíveis</h3>
@@ -17,7 +17,7 @@
 
     <?php else : ?>
   <div class="row">
-
+  
   <?php foreach($produto as $item) : ?>
     
         <div class="col-sm-4 col-6 p-2">
@@ -27,7 +27,7 @@
               <h5>R$ <?= number_format($item->preco, 2,",",".")?></h5>
               <div>
                 <?php if($item->estoque > 0): ?>
-                <button onclick="adiciona_carrinho(<?= $item->id_produto?>);" class="btn btn-primary bt-cart" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar <i class="fas fa-shopping-cart"></i></button>
+                <button onclick="adiciona_carrinho({id :<?= $item->id_produto?>, item : '<?= $item->nome_produto?> '});" class="btn btn-primary bt-cart" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar <i class="fas fa-shopping-cart"> </i></button>
                 <?php else: ?>
                   <span class="text-muted">indisponível</span>
                 <?php endif; ?>

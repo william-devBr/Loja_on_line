@@ -1,8 +1,11 @@
-<div class="container">
-<div class="fluid text-end">
-    Olá,
-        <span><?= $_SESSION['client']; ?> 
-    </div>
-    <h2>Minha Conta</h2>
 
-</div>
+<?php 
+
+ if(isset($_GET['action'])) {
+      
+        @include($_GET['action'].".php");
+ }else {
+        @include('historico_pedido.php');
+ }
+
+?>

@@ -55,7 +55,7 @@
                   <a class="ms-3" href="?a=limpar_carrinho">SIM</a>
               </div>
              <div class="col text-end">
-               <a href="?a=checkout" class="btn btn-success btn-checkout">finalizar</a>
+               <a href="?a=checkout" class="btn btn-success btn-checkout">Prosseguir</a>
               </div>
               </div>
 

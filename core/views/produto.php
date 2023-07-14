@@ -13,7 +13,7 @@
                 <h5>R$ <?= number_format($produto->preco,2,",",".") ?></h5>
             </div>
             <div class="col my-4">
-                <button onclick="adiciona_carrinho(<?= $produto->id_produto?>);" class="btn btn-primary">Adicionar ao carrinho <i class="fas fa-shopping-cart"></i></button>
+                <button onclick="adiciona_carrinho({id :<?= $produto->id_produto?>, item : '<?= $produto->nome_produto ?>'});" class="btn btn-primary">Adicionar ao carrinho <i class="fas fa-shopping-cart"></i></button>
             </div>
         
         </div>

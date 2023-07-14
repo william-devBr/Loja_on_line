@@ -1,9 +1,8 @@
-<div class="container-fluid">
+<div class="container my-3">
   <div class="row">
-    <div class="col-12">
-
-         <h1>Home loja</h1>
-
+    <div class="col d-flex">
+         <h3>loja</h3>
     </div>
+    
   </div>
 </div>
